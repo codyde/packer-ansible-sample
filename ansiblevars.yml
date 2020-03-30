@@ -1,0 +1,14 @@
+build:
+  consul_url: "https://releases.hashicorp.com/consul/1.7.2/"
+  datacenter: "humblelabvm"
+  consul_binary: "consul_1.7.2_linux_amd64.zip"
+  gossip_encrypt: "fillinyours"
+  recursor: "192.168.1.112"
+vsphere:
+  provider: "vsphere"
+  user: "administrator@vsphere.local"
+  password: "VMware123!"
+  category: "hashi"
+  tag: "consul"
+  ssl: "true"
+  host: "vc"

@@ -1,0 +1,43 @@
+- name: Configure Consul
+  hosts: all
+  connection: ssh
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+  - name: Get Vars
+    include_vars:
+      file: ansiblevars.yml
+  
+  - name: Get Consul Binary
+    get_url:
+      url: "{{ build.consul_url }}{{ build.consul_binary }}"
+      dest: /tmp/{{ build.consul_binary }}
+
+  - name: Unzip Consul Binary
+    unarchive:
+      src: /tmp/{{ build.consul_binary }}
+      dest: /usr/local/bin/
+      remote_src: yes
+
+  - name: Copy Consul Service File
+    template:
+      dest: /etc/systemd/system/consul.service
+      src: consul.service
+
+  - name: Enable Consul Service
+    systemd:
+      name: consul
+      enabled: yes
+
+  - name: Create Consul Configuration File
+    template:
+      src: consul.config.json
+      dest: /etc/consul.d/server/
+
+  - name: Create Consul Data Directory
+    file:
+      path: /var/consul
+      state: directory 

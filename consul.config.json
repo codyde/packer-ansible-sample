@@ -1,0 +1,17 @@
+{
+    "datacenter": "humblelabvm",
+    "encrypt": "{{ build.gossip_encrypt }}",
+    "server": false,
+    "bind_addr": "{% raw %}{{ GetInterfaceIP \"ens192\" }}{% endraw %}",
+    "connect": {
+      "enabled": true
+    },
+    "ports": {
+      "grpc": 8502
+    },
+    "data_dir": "/var/consul",
+    "log_level": "INFO",
+    "retry_join": [
+      "provider={{ vsphere.provider }} category_name={{ vsphere.category }} tag_name={{ vsphere.tag }} host={{ vsphere.host }} user={{ vsphere.user }} password={{ vsphere.password }} insecure_ssl={{ vsphere.ssl }}"
+    ]
+  }

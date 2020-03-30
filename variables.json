@@ -1,0 +1,12 @@
+{
+    "vcenter_server":"vc",
+    "username":"administrator@vsphere.local",
+    "password":"VMware123!",
+    "datastore":"vsanDatastore",
+    "folder": "_Templates",
+    "host":"hltenesx01.humblelab.com",
+    "cluster": "Tenant",
+    "network": "VM Network",
+    "ssh_username": "hladmin",
+    "ssh_password": "Hashi123!"
+}
