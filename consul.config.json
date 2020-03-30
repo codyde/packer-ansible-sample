@@ -1,17 +1,29 @@
 {
-    "datacenter": "humblelabvm",
-    "encrypt": "{{ build.gossip_encrypt }}",
-    "server": false,
-    "bind_addr": "{% raw %}{{ GetInterfaceIP \"ens192\" }}{% endraw %}",
-    "connect": {
+  "bootstrap_expect": 3,
+  "bind_addr": "{% raw %}{{ GetInterfaceIP \"ens192\" }}{% endraw %}",
+  "connect":{
       "enabled": true
-    },
-    "ports": {
-      "grpc": 8502
-    },
-    "data_dir": "/var/consul",
-    "log_level": "INFO",
-    "retry_join": [
+  },
+  "datacenter": "{{ build.datacenter }}",
+  "data_dir": "/var/consul",
+  "recursors": [ "{{ build.recursor }}" ],
+  "ports" : {
+    "dns" : 53
+  },
+  "domain": "consul",
+  "enable_script_checks": true,
+  "dns_config": {
+      "enable_truncate": true,
+      "only_passing": true
+  },
+  "enable_syslog": true,
+  "encrypt": "{{ build.consul_encrypt }}",
+  "leave_on_terminate": true,
+  "log_level": "INFO",
+  "rejoin_after_leave": true,
+  "server": true,
+  "retry_join": [
       "provider={{ vsphere.provider }} category_name={{ vsphere.category }} tag_name={{ vsphere.tag }} host={{ vsphere.host }} user={{ vsphere.user }} password={{ vsphere.password }} insecure_ssl={{ vsphere.ssl }}"
-    ]
-  }
+  ],
+  "ui": true
+}
